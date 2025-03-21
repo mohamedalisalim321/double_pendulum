@@ -64,9 +64,9 @@ text = "Mohamed Ali Salim"
 
 [node name="Control" type="Control" parent="Control"]
 anchors_preset = 0
-offset_left = 48.0
+offset_left = 800.0
 offset_top = 240.0
-offset_right = 272.0
+offset_right = 1024.0
 offset_bottom = 349.0
 scale = Vector2(1.76289, 1.76289)
 
