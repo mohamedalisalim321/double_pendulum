@@ -2,8 +2,8 @@ name: Export Godot Project
 
 on:
   push:
-    tags:
-      - 'v*'  # Trigger on version tags (e.g., v1.0.0)
+    branches:
+      - main  # Trigger on new commits to the main branch
 
 jobs:
   export:
@@ -13,22 +13,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Godot
-        uses: actions/godot-export@v1  # Use the correct action
-        with:
-          godot_version: '4.4'  # Replace with your Godot version (e.g., 4.4)
+      - name: Download Godot
+        run: |
+          wget https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_linux_headless.64.zip
+          unzip Godot_v4.4-stable_linux_headless.64.zip
+          chmod +x Godot_v4.4-stable_linux_headless.64
 
       - name: Export for Windows
         run: |
-          godot --headless --export-release "Windows Desktop" build/windows/game.exe
+          ./Godot_v4.4-stable_linux_headless.64 --headless --export-release "Windows Desktop" build/windows/game.exe
 
       - name: Export for Linux
         run: |
-          godot --headless --export-release "Linux/X11" build/linux/game.x86_64
+          ./Godot_v4.4-stable_linux_headless.64 --headless --export-release "Linux/X11" build/linux/game.x86_64
 
       - name: Export for macOS
         run: |
-          godot --headless --export-release "macOS" build/macos/game.zip
+          ./Godot_v4.4-stable_linux_headless.64 --headless --export-release "macOS" build/macos/game.zip
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
