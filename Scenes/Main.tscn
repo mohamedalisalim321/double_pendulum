@@ -1,0 +1,119 @@
+[gd_scene load_steps=5 format=3 uid="uid://cp7mef3xlm6kw"]
+
+[ext_resource type="Script" uid="uid://cu1s1g2qpgkwf" path="res://Scripts/main.gd" id="1_idj7w"]
+[ext_resource type="FontFile" uid="uid://ctpn7112ghwft" path="res://Assets/JetBrainsMono[wght].ttf" id="2_kln2b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gbba"]
+font = ExtResource("2_kln2b")
+
+[sub_resource type="LabelSettings" id="LabelSettings_jjvhh"]
+font = ExtResource("2_kln2b")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_idj7w")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Labels" type="VBoxContainer" parent="UI/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Length1T" type="Label" parent="UI/HBoxContainer/Labels"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_8gbba")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Length2T" type="Label" parent="UI/HBoxContainer/Labels"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_8gbba")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mass1T" type="Label" parent="UI/HBoxContainer/Labels"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_8gbba")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mass2T" type="Label" parent="UI/HBoxContainer/Labels"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_8gbba")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GravityT" type="Label" parent="UI/HBoxContainer/Labels"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_8gbba")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sliders" type="VBoxContainer" parent="UI/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/separation = 13
+alignment = 1
+
+[node name="Length1S" type="HSlider" parent="UI/HBoxContainer/Sliders"]
+layout_mode = 2
+min_value = 50.0
+value = 50.0
+
+[node name="Length2S" type="HSlider" parent="UI/HBoxContainer/Sliders"]
+layout_mode = 2
+min_value = 50.0
+value = 50.0
+
+[node name="Mass1S" type="HSlider" parent="UI/HBoxContainer/Sliders"]
+layout_mode = 2
+min_value = 0.1
+max_value = 20.0
+value = 0.1
+
+[node name="Mass2S" type="HSlider" parent="UI/HBoxContainer/Sliders"]
+layout_mode = 2
+min_value = 0.1
+max_value = 20.0
+value = 0.1
+
+[node name="GravityS" type="HSlider" parent="UI/HBoxContainer/Sliders"]
+layout_mode = 2
+max_value = 20.0
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_top = 135.0
+offset_right = 40.0
+offset_bottom = 158.0
+text = "r- reset scene
+space- remove points"
+label_settings = SubResource("LabelSettings_jjvhh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Line2D2" type="Line2D" parent="."]
+show_behind_parent = true
+width = 2.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[connection signal="value_changed" from="UI/HBoxContainer/Sliders/Length1S" to="." method="_on_length_1s_value_changed"]
+[connection signal="value_changed" from="UI/HBoxContainer/Sliders/Length2S" to="." method="_on_length_2s_value_changed"]
+[connection signal="value_changed" from="UI/HBoxContainer/Sliders/Mass1S" to="." method="_on_mass_1s_value_changed"]
+[connection signal="value_changed" from="UI/HBoxContainer/Sliders/Mass2S" to="." method="_on_mass_2s_value_changed"]
+[connection signal="value_changed" from="UI/HBoxContainer/Sliders/GravityS" to="." method="_on_gravity_s_value_changed"]

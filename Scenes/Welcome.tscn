@@ -1,0 +1,108 @@
+[gd_scene load_steps=4 format=3 uid="uid://c54xipvulxems"]
+
+[ext_resource type="FontFile" uid="uid://ctpn7112ghwft" path="res://Assets/JetBrainsMono[wght].ttf" id="1_dfha7"]
+[ext_resource type="Script" uid="uid://ckjuhuc0jnwoe" path="res://Scripts/welcome.gd" id="1_xr8u3"]
+[ext_resource type="Texture2D" uid="uid://ccyjxohlxjy86" path="res://Assets/Mohamed Ali Salaim.jpeg" id="3_eujoe"]
+
+[node name="Welcome" type="Node2D"]
+script = ExtResource("1_xr8u3")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 240.0
+offset_right = 616.0
+offset_bottom = 338.0
+scale = Vector2(2.70541, 2.70541)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer"]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_dfha7")
+text = "Start"
+
+[node name="About" type="Button" parent="Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_dfha7")
+text = "About"
+
+[node name="Quit" type="Button" parent="Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_dfha7")
+text = "Quit"
+
+[node name="Title" type="Label" parent="Control"]
+offset_left = 472.0
+offset_top = 112.0
+offset_right = 616.0
+offset_bottom = 134.0
+scale = Vector2(2.22632, 2.22632)
+theme_override_fonts/font = ExtResource("1_dfha7")
+text = "Double Pendulum"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mohamed" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 560.0
+offset_right = 620.0
+offset_bottom = 583.0
+scale = Vector2(2.22632, 2.22632)
+theme_override_fonts/font = ExtResource("1_dfha7")
+text = "Mohamed Ali Salim"
+
+[node name="Control" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 48.0
+offset_top = 240.0
+offset_right = 272.0
+offset_bottom = 349.0
+scale = Vector2(1.76289, 1.76289)
+
+[node name="ColorRect" type="ColorRect" parent="Control/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 24.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.123473, 0.123473, 0.123473, 1)
+
+[node name="Label" type="Label" parent="Control/Control"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 4.0
+offset_right = 236.0
+offset_bottom = 27.0
+text = "Made By Mohamed Ali Salim"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/Control"]
+layout_mode = 1
+offset_left = 80.0
+offset_top = 32.0
+offset_right = 1236.0
+offset_bottom = 1188.0
+scale = Vector2(0.0823358, 0.0823358)
+texture = ExtResource("3_eujoe")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[connection signal="pressed" from="Control/CenterContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/VBoxContainer/About" to="." method="_on_about_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
