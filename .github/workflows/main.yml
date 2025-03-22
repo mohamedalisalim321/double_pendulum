@@ -1,41 +1,33 @@
-name: Export Godot Project
+name: Godot Export
 
 on:
   push:
     branches:
-      - main  # Trigger on new commits to the main branch
+      - main  # Change this if your default branch has a different name
+  workflow_dispatch: # Allows manual runs from GitHub UI
 
 jobs:
-  export:
+  export_game:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Download Godot
-        run: |
-          wget https://downloads.tuxfamily.org/godotengine/4.4/Godot_v4.4-stable_linux_headless.64.zip
-          unzip Godot_v4.4-stable_linux_headless.64.zip
-          chmod +x Godot_v4.4-stable_linux_headless.64
-
-      - name: Export for Windows
-        run: |
-          ./Godot_v4.4-stable_linux_headless.64 --headless --export-release "Windows Desktop" build/windows/game.exe
-
-      - name: Export for Linux
-        run: |
-          ./Godot_v4.4-stable_linux_headless.64 --headless --export-release "Linux/X11" build/linux/game.x86_64
-
-      - name: Export for macOS
-        run: |
-          ./Godot_v4.4-stable_linux_headless.64 --headless --export-release "macOS" build/macos/game.zip
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+      - name: Setup Godot
+        uses: josephbmanley/godot-action@v2
         with:
-          name: builds
-          path: |
-            build/windows/game.exe
-            build/linux/game.x86_64
-            build/macos/game.zip
+          version: "4.4"
+          export_templates: true
+
+      - name: Export Game
+        run: |
+          mkdir -p build
+          godot --headless --export-release "Windows Desktop" "build/game.exe"
+          godot --headless --export-release "Linux/X11" "build/game.x86_64"
+
+      - name: Upload Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: exported-game
+          path: build/
