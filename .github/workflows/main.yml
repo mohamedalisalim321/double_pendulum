@@ -25,17 +25,18 @@ jobs:
         run: |
           mkdir -p ~/.local/share/godot/export_templates/4.4.stable
           wget https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
-          unzip -o Godot_v4.4-stable_export_templates.tpz -d ~/.local/share/godot/export_templates/4.4.stable
+          unzip -o Godot_v4.4-stable_export_templates.tpz -d ~/.local/share/godot/export_templates/
+          mv ~/.local/share/godot/export_templates/templates/* ~/.local/share/godot/export_templates/4.4.stable/
 
       - name: Export for Linux
         run: |
           mkdir -p builds
-          godot --headless --export-release "Linux" "builds/double pendulum.x86_64"
+          godot --headless --export-release "Linux" "builds/double_pendulum.x86_64"
 
       - name: Export for Windows
         run: |
           mkdir -p builds
-          godot --headless --export-release "Windows Desktop" "builds/double pendulum.exe"
+          godot --headless --export-release "Windows Desktop" "builds/double_pendulum.exe"
 
       - name: Upload Build
         uses: actions/upload-artifact@v4
