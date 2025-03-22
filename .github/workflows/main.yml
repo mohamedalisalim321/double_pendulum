@@ -3,8 +3,8 @@ name: Godot Export
 on:
   push:
     branches:
-      - main  # Runs when pushing to the main branch
-  workflow_dispatch: # Allows manual runs from GitHub UI
+      - main
+  workflow_dispatch:
 
 jobs:
   export_game:
@@ -19,22 +19,26 @@ jobs:
           wget https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip
           unzip Godot_v4.4-stable_linux.x86_64.zip
           chmod +x Godot_v4.4-stable_linux.x86_64
-          mv Godot_v4.4-stable_linux.x86_64 /usr/local/bin/godot
+          sudo mv Godot_v4.4-stable_linux.x86_64 /usr/local/bin/godot
 
       - name: Setup Export Templates
         run: |
-          mkdir -p ~/.config/godot
+          mkdir -p ~/.local/share/godot/export_templates/4.4.stable
           wget https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
-          unzip -o Godot_v4.4-stable_export_templates.tpz -d ~/.config/godot
+          unzip -o Godot_v4.4-stable_export_templates.tpz -d ~/.local/share/godot/export_templates/4.4.stable
 
-      - name: Export Game
+      - name: Export for Linux
         run: |
-          mkdir -p build
-          godot --headless --export-release "Windows Desktop" "build/game.exe"
-          godot --headless --export-release "Linux/X11" "build/game.x86_64"
+          mkdir -p builds
+          godot --headless --export-release "Linux" "builds/double pendulum.x86_64"
+
+      - name: Export for Windows
+        run: |
+          mkdir -p builds
+          godot --headless --export-release "Windows Desktop" "builds/double pendulum.exe"
 
       - name: Upload Build
         uses: actions/upload-artifact@v4
         with:
           name: exported-game
-          path: build/
+          path: builds/
